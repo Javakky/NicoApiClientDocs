@@ -1,0 +1,7 @@
+nicovideo\_api\_client.api.v2.simple\_filter module
+===================================================
+
+.. automodule:: nicovideo_api_client.api.v2.simple_filter
+   :members:
+   :undoc-members:
+   :show-inheritance:

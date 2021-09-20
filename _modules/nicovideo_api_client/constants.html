@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nicovideo_api_client.constants &mdash; nicovideo_api_client  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> nicovideo_api_client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nicovideo_api_client.html">nicovideo_api_client package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nicovideo_api_client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">モジュールコード</a> &raquo;</li>
+      <li>nicovideo_api_client.constants</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>nicovideo_api_client.constants のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+
+<div class="viewcode-block" id="FieldType"><a class="viewcode-back" href="../../nicovideo_api_client.constants.html#nicovideo_api_client.constants.FieldType">[ドキュメント]</a><span class="k">class</span> <span class="nc">FieldType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">CONTENT_ID</span> <span class="o">=</span> <span class="s1">&#39;contentId&#39;</span>
+    <span class="n">TITLE</span> <span class="o">=</span> <span class="s1">&#39;title&#39;</span>
+    <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;description&#39;</span>
+    <span class="n">VIEW_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;viewCounter&#39;</span>
+    <span class="n">MYLIST_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;mylistCounter&#39;</span>
+    <span class="n">LENGTH_SECONDS</span> <span class="o">=</span> <span class="s1">&#39;lengthSeconds&#39;</span>
+    <span class="n">THUMBNAIL_URL</span> <span class="o">=</span> <span class="s1">&#39;thumbnailUrl&#39;</span>
+    <span class="n">START_TIME</span> <span class="o">=</span> <span class="s1">&#39;startTime&#39;</span>
+    <span class="n">LAST_RES_BODY</span> <span class="o">=</span> <span class="s1">&#39;lastResBody&#39;</span>
+    <span class="n">COMMENT_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;commentCounter&#39;</span>
+    <span class="n">LAST_COMMENT_TIME</span> <span class="o">=</span> <span class="s1">&#39;lastCommentTime&#39;</span>
+    <span class="n">CATEGORY_TAGS</span> <span class="o">=</span> <span class="s1">&#39;categoryTags&#39;</span>
+    <span class="n">TAGS</span> <span class="o">=</span> <span class="s1">&#39;tags&#39;</span>
+    <span class="n">TAGS_EXACT</span> <span class="o">=</span> <span class="s1">&#39;tagsExact&#39;</span>
+    <span class="n">GENRE</span> <span class="o">=</span> <span class="s1">&#39;genre&#39;</span>
+    <span class="n">GENRE_KEYWORD</span> <span class="o">=</span> <span class="s1">&#39;genre.keyword&#39;</span></div>
+
+
+<span class="n">END_POINT_URL_V2</span> <span class="o">=</span> <span class="s1">&#39;https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search&#39;</span>
+<span class="n">END_POINT_URL_NVV3</span> <span class="o">=</span> <span class="s1">&#39;https://nvapi.nicovideo.jp/v3/&#39;</span>
+<span class="n">END_POINT_URL_NVV2</span> <span class="o">=</span> <span class="s1">&#39;https://nvapi.nicovideo.jp/v2/&#39;</span>
+<span class="n">END_POINT_URL_VIDEO</span> <span class="o">=</span> <span class="s1">&#39;https://www.nicovideo.jp/watch/&#39;</span>
+<span class="n">END_POINT_URL_V2_VERSION</span> <span class="o">=</span> <span class="s1">&#39;https://api.search.nicovideo.jp/api/v2/snapshot/version&#39;</span>
+
+<span class="n">sort_types</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">MYLIST_COUNTER</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">LENGTH_SECONDS</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">START_TIME</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">COMMENT_COUNTER</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_COMMENT_TIME</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="SortKeyType"><a class="viewcode-back" href="../../nicovideo_api_client.constants.html#nicovideo_api_client.constants.SortKeyType">[ドキュメント]</a><span class="k">class</span> <span class="nc">SortKeyType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">REGISTERED_AT</span> <span class="o">=</span> <span class="s1">&#39;registeredAt&#39;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Javakky.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+nicovideo\_api\_client.api.v2.limit module
+==========================================
+
+.. automodule:: nicovideo_api_client.api.v2.limit
+   :members:
+   :undoc-members:
+   :show-inheritance:

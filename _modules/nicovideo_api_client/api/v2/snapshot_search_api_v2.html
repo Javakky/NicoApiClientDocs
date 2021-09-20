@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nicovideo_api_client.api.v2.snapshot_search_api_v2 &mdash; nicovideo_api_client  ドキュメント</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> nicovideo_api_client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nicovideo_api_client.html">nicovideo_api_client package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">nicovideo_api_client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">モジュールコード</a> &raquo;</li>
+      <li>nicovideo_api_client.api.v2.snapshot_search_api_v2</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>nicovideo_api_client.api.v2.snapshot_search_api_v2 のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.api.v2.targets</span> <span class="kn">import</span> <span class="n">SnapshotSearchAPIV2Targets</span>
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.constants</span> <span class="kn">import</span> <span class="n">END_POINT_URL_V2_VERSION</span><span class="p">,</span> <span class="n">FieldType</span>
+
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.snapshot_search_api_v2.html#nicovideo_api_client.api.v2.snapshot_search_api_v2.SnapshotSearchAPIV2">[ドキュメント]</a><span class="k">class</span> <span class="nc">SnapshotSearchAPIV2</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `ニコニコ動画 『スナップショット検索API v2』 &lt;https://site.nicovideo.jp/search-api-docs/snapshot&gt;`_ のエンドポイント</span>
+<span class="sd">    ここの関数から返るオブジェクトをメソッドチェーンをつないで呼び出すことで適切に設定された状態でAPIを叩くことができる。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SnapshotSearchAPIV2.tags_exact"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.snapshot_search_api_v2.html#nicovideo_api_client.api.v2.snapshot_search_api_v2.SnapshotSearchAPIV2.tags_exact">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tags_exact</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        タグ検索を行う</span>
+
+<span class="sd">        :return: クエリ(キーワード)入力オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">(</span><span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS_EXACT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2.keywords"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.snapshot_search_api_v2.html#nicovideo_api_client.api.v2.snapshot_search_api_v2.SnapshotSearchAPIV2.keywords">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">keywords</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        キーワード検索を行う</span>
+
+<span class="sd">        :return: クエリ(キーワード)入力オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">(</span><span class="n">FieldType</span><span class="o">.</span><span class="n">TITLE</span><span class="p">,</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">DESCRIPTION</span><span class="p">,</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2.version"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.snapshot_search_api_v2.html#nicovideo_api_client.api.v2.snapshot_search_api_v2.SnapshotSearchAPIV2.version">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">400</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        API の最終更新日時を取得する。</span>
+
+<span class="sd">        `データの更新について &lt;https://site.nicovideo.jp/search-api-docs/snapshot#</span>
+<span class="sd">        %E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%9B%B4%E6%96%B0%E3%81%AB%E3%81%A</span>
+<span class="sd">        4%E3%81%84%E3%81%A6&gt;`_ を参照。</span>
+
+<span class="sd">        Note: 実際にリクエストが行われる。</span>
+
+<span class="sd">        :param timeout: リクエストのタイムアウト時間。</span>
+<span class="sd">        :return: 最終更新日時</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">END_POINT_URL_V2_VERSION</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_modified&quot;</span><span class="p">])</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Javakky.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

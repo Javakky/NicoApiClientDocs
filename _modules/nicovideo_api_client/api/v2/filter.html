@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nicovideo_api_client.api.v2.filter &mdash; nicovideo_api_client  ドキュメント</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> nicovideo_api_client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nicovideo_api_client.html">nicovideo_api_client package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">nicovideo_api_client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">モジュールコード</a> &raquo;</li>
+      <li>nicovideo_api_client.api.v2.filter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>nicovideo_api_client.api.v2.filter のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">JSONEncoder</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.api.v2.json_filter</span> <span class="kn">import</span> <span class="n">JsonFilterOperator</span><span class="p">,</span> <span class="n">JsonFilterTerm</span>
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.api.v2.limit</span> <span class="kn">import</span> <span class="n">SnapshotSearchAPIV2Limit</span>
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.api.v2.simple_filter</span> <span class="kn">import</span> <span class="n">SnapshotSearchAPIV2SimpleFilter</span>
+
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.filter.html#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter">[ドキュメント]</a><span class="k">class</span> <span class="nc">SnapshotSearchAPIV2Filter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Filter.simple_filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.filter.html#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.simple_filter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">simple_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2SimpleFilter</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        絞り込みにシンプルな `filters` を利用することを宣言する。</span>
+
+<span class="sd">        :return: フィルタリング要素指定オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2SimpleFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Filter.json_filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.filter.html#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.json_filter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">json_filter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">op</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">JsonFilterOperator</span><span class="p">,</span> <span class="n">JsonFilterTerm</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        `JsonFilterOperator` を使って表現した条件から、 `jsonFilter` を利用して絞り込む。</span>
+
+<span class="sd">        :param op: 絞り込み条件</span>
+<span class="sd">        :return: リクエスト上限設定オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;jsonFilter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">JSONEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">json</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Javakky.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+nicovideo\_api\_client package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nicovideo_api_client.api
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nicovideo_api_client.constants
+
+Module contents
+---------------
+
+.. automodule:: nicovideo_api_client
+   :members:
+   :undoc-members:
+   :show-inheritance:

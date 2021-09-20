@@ -1,0 +1,7 @@
+nicovideo\_api\_client.api.v2.snapshot\_search\_api\_v2 module
+==============================================================
+
+.. automodule:: nicovideo_api_client.api.v2.snapshot_search_api_v2
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+nicovideo\_api\_client.constants module
+=======================================
+
+.. automodule:: nicovideo_api_client.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:

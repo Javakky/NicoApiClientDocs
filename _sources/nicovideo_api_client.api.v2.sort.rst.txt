@@ -1,0 +1,7 @@
+nicovideo\_api\_client.api.v2.sort module
+=========================================
+
+.. automodule:: nicovideo_api_client.api.v2.sort
+   :members:
+   :undoc-members:
+   :show-inheritance:

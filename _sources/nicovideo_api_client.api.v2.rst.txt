@@ -1,0 +1,27 @@
+nicovideo\_api\_client.api.v2 package
+=====================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nicovideo_api_client.api.v2.field
+   nicovideo_api_client.api.v2.filter
+   nicovideo_api_client.api.v2.json_filter
+   nicovideo_api_client.api.v2.limit
+   nicovideo_api_client.api.v2.request
+   nicovideo_api_client.api.v2.result
+   nicovideo_api_client.api.v2.simple_filter
+   nicovideo_api_client.api.v2.snapshot_search_api_v2
+   nicovideo_api_client.api.v2.sort
+   nicovideo_api_client.api.v2.targets
+
+Module contents
+---------------
+
+.. automodule:: nicovideo_api_client.api.v2
+   :members:
+   :undoc-members:
+   :show-inheritance:
