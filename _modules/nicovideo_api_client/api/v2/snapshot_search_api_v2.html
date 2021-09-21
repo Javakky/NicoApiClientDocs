@@ -65,7 +65,8 @@
            <div itemprop="articleBody">
              
   <h1>nicovideo_api_client.api.v2.snapshot_search_api_v2 のソースコード</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 
@@ -95,6 +96,18 @@
 <span class="sd">        :return: クエリ(キーワード)入力オブジェクト</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">(</span><span class="n">FieldType</span><span class="o">.</span><span class="n">TITLE</span><span class="p">,</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">DESCRIPTION</span><span class="p">,</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2.targets"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.snapshot_search_api_v2.html#nicovideo_api_client.api.v2.snapshot_search_api_v2.SnapshotSearchAPIV2.targets">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">targets</span><span class="p">(</span><span class="n">targets</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">FieldType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        検索対象のフィールドタイプを指定して検索を行う。</span>
+
+<span class="sd">        :return: クエリ(キーワード)入力オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS_EXACT</span> <span class="ow">in</span> <span class="n">targets</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;tagsExact は他のフィールドタイプと併用して指定できません&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Targets</span><span class="p">(</span><span class="o">*</span><span class="n">targets</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2.version"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.snapshot_search_api_v2.html#nicovideo_api_client.api.v2.snapshot_search_api_v2.SnapshotSearchAPIV2.version">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">400</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
