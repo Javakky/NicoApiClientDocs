@@ -69,7 +69,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 
-<span class="n">TypeOp</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;TypeOp&#39;</span><span class="p">],</span> <span class="s1">&#39;TypeOp&#39;</span><span class="p">]]</span>
+<span class="n">TypeOp</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;TypeOp&quot;</span><span class="p">],</span> <span class="s2">&quot;TypeOp&quot;</span><span class="p">]]</span>
 
 
 <div class="viewcode-block" id="JsonFilterOperator"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterOperator">[ドキュメント]</a><span class="k">class</span> <span class="nc">JsonFilterOperator</span><span class="p">:</span>
@@ -78,11 +78,12 @@
 
 <span class="sd">    基本的にはこのオブジェクト1つで検索条件を表現するが、入子的に複数の検索条件が設定されることがある。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_</span><span class="p">:</span> <span class="n">TypeOp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="n">TypeOp</span> <span class="o">=</span> <span class="n">json_</span>
 
 <div class="viewcode-block" id="JsonFilterOperator.unit"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterOperator.unit">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="n">term</span><span class="p">:</span> <span class="s1">&#39;JsonFilterTerm&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="n">term</span><span class="p">:</span> <span class="s2">&quot;JsonFilterTerm&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        単一の絞り込み要素のみで絞り込むことを明示的に宣言する。</span>
 
@@ -96,40 +97,29 @@
         <span class="k">return</span> <span class="n">JsonFilterOperator</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">json</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="JsonFilterOperator.not_"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterOperator.not_">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">not_</span><span class="p">(</span>
-            <span class="n">term</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">not_</span><span class="p">(</span><span class="n">term</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        与えられた絞り込み要素の論理否定を表現する絞り込み条件。</span>
 
 <span class="sd">        :param term: 否定したい絞り込み要素</span>
 <span class="sd">        :return: 絞り込み条件オブジェクト</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">json_</span><span class="p">:</span> <span class="n">TypeOp</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;not&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="n">term</span><span class="o">.</span><span class="n">json</span>
-        <span class="p">}</span>
+        <span class="n">json_</span><span class="p">:</span> <span class="n">TypeOp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;not&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="n">term</span><span class="o">.</span><span class="n">json</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">JsonFilterOperator</span><span class="p">(</span><span class="n">json_</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_binary</span><span class="p">(</span>
-            <span class="n">op_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">left</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">,</span>
-            <span class="n">right</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">:</span>
-        <span class="n">json_</span><span class="p">:</span> <span class="n">TypeOp</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">op_name</span><span class="p">,</span>
-            <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[]</span>
-        <span class="p">}</span>
+        <span class="n">op_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">:</span>
+        <span class="n">json_</span><span class="p">:</span> <span class="n">TypeOp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">op_name</span><span class="p">,</span> <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[]}</span>
         <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
         <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">JsonFilterOperator</span><span class="p">(</span><span class="n">json_</span><span class="p">)</span>
 
 <div class="viewcode-block" id="JsonFilterOperator.or_"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterOperator.or_">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">or_</span><span class="p">(</span>
-            <span class="n">left</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">,</span>
-            <span class="n">right</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">:</span>
+        <span class="n">left</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        2つの絞り込み要素のどちらかが正しいことを表す絞り込み条件。</span>
 
@@ -141,9 +131,8 @@
 
 <div class="viewcode-block" id="JsonFilterOperator.and_"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterOperator.and_">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">and_</span><span class="p">(</span>
-            <span class="n">left</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">,</span>
-            <span class="n">right</span><span class="p">:</span> <span class="s1">&#39;JsonFilterOperator&#39;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterOperator&#39;</span><span class="p">:</span>
+        <span class="n">left</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="s2">&quot;JsonFilterOperator&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterOperator&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        2つの絞り込み要素の両方が正しいことを表す絞り込み条件。</span>
 
@@ -162,16 +151,17 @@
 
 <span class="sd">    TODO: equal 絞り込みを実装する。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">({})</span>
 
 <div class="viewcode-block" id="JsonFilterTerm.set_range_view"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterTerm.set_range_view">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">set_range_view</span><span class="p">(</span>
-            <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">include_lower</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="n">include_upper</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterTerm&#39;</span><span class="p">:</span>
+        <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_lower</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">include_upper</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterTerm&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        再生回数が与えられた範囲内かを調べる検索要素。</span>
 
@@ -186,7 +176,7 @@
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;上限も下限も指定されていません&quot;</span><span class="p">)</span>
         <span class="n">json_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;viewCounter&quot;</span>
+            <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;viewCounter&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_</span>
@@ -201,11 +191,11 @@
 
 <div class="viewcode-block" id="JsonFilterTerm.set_range_time"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterTerm.set_range_time">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">set_range_time</span><span class="p">(</span>
-            <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">include_lower</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="n">include_upper</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;JsonFilterTerm&#39;</span><span class="p">:</span>
+        <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_lower</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">include_upper</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterTerm&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        投稿時刻が与えられた範囲内かを調べる検索要素。</span>
 
@@ -218,14 +208,11 @@
         <span class="n">term</span><span class="p">:</span> <span class="n">JsonFilterTerm</span> <span class="o">=</span> <span class="n">JsonFilterTerm</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">to_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;開始時刻も終了時刻も指定されていません&quot;</span><span class="p">)</span>
-        <span class="n">json_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;startTime&quot;</span>
-        <span class="p">}</span>
+        <span class="n">json_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;startTime&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S+09:00&#39;</span><span class="p">)</span>
+            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S+09:00&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">to_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S+09:00&#39;</span><span class="p">)</span>
+            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S+09:00&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">include_lower</span><span class="p">:</span>
             <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;include_lower&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_lower</span>
         <span class="k">if</span> <span class="n">include_upper</span><span class="p">:</span>

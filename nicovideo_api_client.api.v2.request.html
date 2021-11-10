@@ -82,45 +82,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-nicovideo_api_client.api.v2.request">
-<span id="nicovideo-api-client-api-v2-request-module"></span><h1>nicovideo_api_client.api.v2.request module<a class="headerlink" href="#module-nicovideo_api_client.api.v2.request" title="このヘッドラインへのパーマリンク"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.request.SnapshotSearchAPIV2Request">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nicovideo_api_client.api.v2.request.</span></span><span class="sig-name descname"><span class="pre">SnapshotSearchAPIV2Request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/request.html#SnapshotSearchAPIV2Request"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.request.SnapshotSearchAPIV2Request" title="この定義へのパーマリンク"></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.request.SnapshotSearchAPIV2Request.build_url">
-<span class="sig-name descname"><span class="pre">build_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/request.html#SnapshotSearchAPIV2Request.build_url"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.request.SnapshotSearchAPIV2Request.build_url" title="この定義へのパーマリンク"></a></dt>
-<dd><p>リクエストオブジェクトに設定されたクエリパラメータから適切な
-URL 文字列を生成する。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ</dt>
-<dd class="field-odd"><p><strong>decode</strong> -- True (デフォルト): urlencode を解除する, False: urlencode された文字列を返す</p>
-</dd>
-<dt class="field-even">戻り値</dt>
-<dd class="field-even"><p>API リクエストのための URL 文字列</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.request.SnapshotSearchAPIV2Request.request">
-<span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">400.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result" title="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result"><span class="pre">nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result</span></a></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/request.html#SnapshotSearchAPIV2Request.request"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.request.SnapshotSearchAPIV2Request.request" title="この定義へのパーマリンク"></a></dt>
-<dd><p>API にリクエストを送り、レスポンスを返す。</p>
-<p><cite>limit()</cite> で 100件を超える値が設定されている場合、複数回のリクエストに分けて実行される。
-(そのため、 <cite>timeout</cite> の設定には注意が必要)</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ</dt>
-<dd class="field-odd"><p><strong>timeout</strong> -- リクエストを強制終了させるまでのタイムアウト時間。</p>
-</dd>
-</dl>
-<p>複数回に分割リクエストが行われる場合でも、リクエストの合計時間とこの値を比較する。
-また、<cite>timeout</cite> のうち 1/4 を接続時間に、 3/4 を読み込み時間に割り当てている。
-:return: レスポンスオブジェクト</p>
-</dd></dl>
-
-</dd></dl>
-
+  <section id="nicovideo-api-client-api-v2-request-module">
+<h1>nicovideo_api_client.api.v2.request module<a class="headerlink" href="#nicovideo-api-client-api-v2-request-module" title="このヘッドラインへのパーマリンク"></a></h1>
 </section>
 
 
