@@ -66,32 +66,80 @@
              
   <h1>nicovideo_api_client.constants のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypeAlias</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 
 <div class="viewcode-block" id="FieldType"><a class="viewcode-back" href="../../nicovideo_api_client.constants.html#nicovideo_api_client.constants.FieldType">[ドキュメント]</a><span class="k">class</span> <span class="nc">FieldType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="n">CONTENT_ID</span> <span class="o">=</span> <span class="s1">&#39;contentId&#39;</span>
-    <span class="n">TITLE</span> <span class="o">=</span> <span class="s1">&#39;title&#39;</span>
-    <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;description&#39;</span>
-    <span class="n">VIEW_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;viewCounter&#39;</span>
-    <span class="n">MYLIST_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;mylistCounter&#39;</span>
-    <span class="n">LENGTH_SECONDS</span> <span class="o">=</span> <span class="s1">&#39;lengthSeconds&#39;</span>
-    <span class="n">THUMBNAIL_URL</span> <span class="o">=</span> <span class="s1">&#39;thumbnailUrl&#39;</span>
-    <span class="n">START_TIME</span> <span class="o">=</span> <span class="s1">&#39;startTime&#39;</span>
-    <span class="n">LAST_RES_BODY</span> <span class="o">=</span> <span class="s1">&#39;lastResBody&#39;</span>
-    <span class="n">COMMENT_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;commentCounter&#39;</span>
-    <span class="n">LAST_COMMENT_TIME</span> <span class="o">=</span> <span class="s1">&#39;lastCommentTime&#39;</span>
-    <span class="n">CATEGORY_TAGS</span> <span class="o">=</span> <span class="s1">&#39;categoryTags&#39;</span>
-    <span class="n">TAGS</span> <span class="o">=</span> <span class="s1">&#39;tags&#39;</span>
-    <span class="n">TAGS_EXACT</span> <span class="o">=</span> <span class="s1">&#39;tagsExact&#39;</span>
-    <span class="n">GENRE</span> <span class="o">=</span> <span class="s1">&#39;genre&#39;</span>
-    <span class="n">GENRE_KEYWORD</span> <span class="o">=</span> <span class="s1">&#39;genre.keyword&#39;</span></div>
+    <span class="sd">&quot;&quot;&quot;コンテンツのフィールド種別&quot;&quot;&quot;</span>
+
+    <span class="n">CONTENT_ID</span> <span class="o">=</span> <span class="s2">&quot;contentId&quot;</span>
+    <span class="sd">&quot;&quot;&quot;コンテンツID</span>
+<span class="sd">    https://nico.ms/ の後に連結することでコンテンツへのURLになります</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">TITLE</span> <span class="o">=</span> <span class="s2">&quot;title&quot;</span>
+    <span class="sd">&quot;&quot;&quot;タイトル&quot;&quot;&quot;</span>
+
+    <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;description&quot;</span>
+    <span class="sd">&quot;&quot;&quot;コンテンツの説明文&quot;&quot;&quot;</span>
+
+    <span class="n">USER_ID</span> <span class="o">=</span> <span class="s2">&quot;userId&quot;</span>
+    <span class="sd">&quot;&quot;&quot;ユーザー投稿動画の場合、投稿者のユーザーID&quot;&quot;&quot;</span>
+
+    <span class="n">CHANNEL_ID</span> <span class="o">=</span> <span class="s2">&quot;channelId&quot;</span>
+    <span class="sd">&quot;&quot;&quot;	チャンネル動画の場合、チャンネルID&quot;&quot;&quot;</span>
+
+    <span class="n">VIEW_COUNTER</span> <span class="o">=</span> <span class="s2">&quot;viewCounter&quot;</span>
+    <span class="sd">&quot;&quot;&quot;再生数&quot;&quot;&quot;</span>
+
+    <span class="n">MYLIST_COUNTER</span> <span class="o">=</span> <span class="s2">&quot;mylistCounter&quot;</span>
+    <span class="sd">&quot;&quot;&quot;マイリスト数またはお気に入り数&quot;&quot;&quot;</span>
+
+    <span class="n">LIKE_COUNTER</span> <span class="o">=</span> <span class="s2">&quot;likeCounter&quot;</span>
+    <span class="sd">&quot;&quot;&quot;いいね！数&quot;&quot;&quot;</span>
+
+    <span class="n">LENGTH_SECONDS</span> <span class="o">=</span> <span class="s2">&quot;lengthSeconds&quot;</span>
+    <span class="sd">&quot;&quot;&quot;再生時間(秒)&quot;&quot;&quot;</span>
+
+    <span class="n">THUMBNAIL_URL</span> <span class="o">=</span> <span class="s2">&quot;thumbnailUrl&quot;</span>
+    <span class="sd">&quot;&quot;&quot;サムネイルのURL&quot;&quot;&quot;</span>
+
+    <span class="n">START_TIME</span> <span class="o">=</span> <span class="s2">&quot;startTime&quot;</span>
+    <span class="sd">&quot;&quot;&quot;コンテンツの投稿時間&quot;&quot;&quot;</span>
+
+    <span class="n">LAST_RES_BODY</span> <span class="o">=</span> <span class="s2">&quot;lastResBody&quot;</span>
+    <span class="sd">&quot;&quot;&quot;最新のコメント&quot;&quot;&quot;</span>
+
+    <span class="n">COMMENT_COUNTER</span> <span class="o">=</span> <span class="s2">&quot;commentCounter&quot;</span>
+    <span class="sd">&quot;&quot;&quot;コメント数&quot;&quot;&quot;</span>
+
+    <span class="n">LAST_COMMENT_TIME</span> <span class="o">=</span> <span class="s2">&quot;lastCommentTime&quot;</span>
+    <span class="sd">&quot;&quot;&quot;最終コメント時間&quot;&quot;&quot;</span>
+
+    <span class="n">CATEGORY_TAGS</span> <span class="o">=</span> <span class="s2">&quot;categoryTags&quot;</span>
+    <span class="sd">&quot;&quot;&quot;カテゴリタグ&quot;&quot;&quot;</span>
+
+    <span class="n">TAGS</span> <span class="o">=</span> <span class="s2">&quot;tags&quot;</span>
+    <span class="sd">&quot;&quot;&quot;タグ(空白区切り)&quot;&quot;&quot;</span>
+
+    <span class="n">TAGS_EXACT</span> <span class="o">=</span> <span class="s2">&quot;tagsExact&quot;</span>
+    <span class="sd">&quot;&quot;&quot;タグ完全一致(空白区切り)&quot;&quot;&quot;</span>
+
+    <span class="n">GENRE</span> <span class="o">=</span> <span class="s2">&quot;genre&quot;</span>
+    <span class="sd">&quot;&quot;&quot;ジャンル&quot;&quot;&quot;</span>
+
+    <span class="n">GENRE_KEYWORD</span> <span class="o">=</span> <span class="s2">&quot;genre.keyword&quot;</span>
+    <span class="sd">&quot;&quot;&quot;ジャンル完全一致&quot;&quot;&quot;</span></div>
 
 
-<span class="n">END_POINT_URL_V2</span> <span class="o">=</span> <span class="s1">&#39;https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search&#39;</span>
-<span class="n">END_POINT_URL_NVV3</span> <span class="o">=</span> <span class="s1">&#39;https://nvapi.nicovideo.jp/v3/&#39;</span>
-<span class="n">END_POINT_URL_NVV2</span> <span class="o">=</span> <span class="s1">&#39;https://nvapi.nicovideo.jp/v2/&#39;</span>
-<span class="n">END_POINT_URL_VIDEO</span> <span class="o">=</span> <span class="s1">&#39;https://www.nicovideo.jp/watch/&#39;</span>
-<span class="n">END_POINT_URL_V2_VERSION</span> <span class="o">=</span> <span class="s1">&#39;https://api.search.nicovideo.jp/api/v2/snapshot/version&#39;</span>
+<span class="n">DEFAULT_RETRY</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">END_POINT_URL_V2</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search&quot;</span>
+<span class="p">)</span>
+<span class="n">END_POINT_URL_VIDEO</span> <span class="o">=</span> <span class="s2">&quot;https://www.nicovideo.jp/watch/&quot;</span>
+<span class="n">END_POINT_URL_V2_VERSION</span> <span class="o">=</span> <span class="s2">&quot;https://api.search.nicovideo.jp/api/v2/snapshot/version&quot;</span>
 
 <span class="n">sort_types</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="p">,</span>
@@ -99,12 +147,34 @@
     <span class="n">FieldType</span><span class="o">.</span><span class="n">LENGTH_SECONDS</span><span class="p">,</span>
     <span class="n">FieldType</span><span class="o">.</span><span class="n">START_TIME</span><span class="p">,</span>
     <span class="n">FieldType</span><span class="o">.</span><span class="n">COMMENT_COUNTER</span><span class="p">,</span>
-    <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_COMMENT_TIME</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_COMMENT_TIME</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">target_types</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">CONTENT_ID</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">TITLE</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">DESCRIPTION</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_RES_BODY</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">CATEGORY_TAGS</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS_EXACT</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">GENRE</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="o">.</span><span class="n">GENRE_KEYWORD</span><span class="p">,</span>
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="SortKeyType"><a class="viewcode-back" href="../../nicovideo_api_client.constants.html#nicovideo_api_client.constants.SortKeyType">[ドキュメント]</a><span class="k">class</span> <span class="nc">SortKeyType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="n">REGISTERED_AT</span> <span class="o">=</span> <span class="s1">&#39;registeredAt&#39;</span></div>
+<span class="n">MatchValue</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">datetime</span><span class="p">]]</span>
+<span class="n">RangeLiteral</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gt&quot;</span><span class="p">,</span> <span class="s2">&quot;gte&quot;</span><span class="p">,</span> <span class="s2">&quot;lt&quot;</span><span class="p">,</span> <span class="s2">&quot;lte&quot;</span><span class="p">]</span>
+<span class="n">RangeValue</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">Dict</span><span class="p">[</span><span class="n">RangeLiteral</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="n">RangeLiteral</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="n">RangeLiteral</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">MatchDict</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">FieldType</span><span class="p">,</span> <span class="n">MatchValue</span><span class="p">]</span>
+<span class="n">RangeDict</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">FieldType</span><span class="p">,</span> <span class="n">RangeValue</span><span class="p">]</span>
+<span class="n">CombinedDict</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">FieldType</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">MatchValue</span><span class="p">,</span> <span class="n">RangeValue</span><span class="p">]]</span>
+
+<span class="n">JSON_LITERAL</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span>
+<span class="n">JSON</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">JSON_LITERAL</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;JSON&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;JSON&quot;</span><span class="p">]</span>
 </pre></div>
 
            </div>

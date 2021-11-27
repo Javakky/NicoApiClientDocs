@@ -66,8 +66,8 @@
              
   <h1>nicovideo_api_client.api.v2.json_filter のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
-
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.constants</span> <span class="kn">import</span> <span class="n">FieldType</span>
 
 <span class="n">TypeOp</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;TypeOp&quot;</span><span class="p">],</span> <span class="s2">&quot;TypeOp&quot;</span><span class="p">]]</span>
 
@@ -155,18 +155,20 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">({})</span>
 
-<div class="viewcode-block" id="JsonFilterTerm.set_range_view"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterTerm.set_range_view">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">set_range_view</span><span class="p">(</span>
-        <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="JsonFilterTerm.set_range"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterTerm.set_range">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">set_range</span><span class="p">(</span>
+        <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span>
+        <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">include_lower</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">include_upper</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterTerm&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        再生回数が与えられた範囲内かを調べる検索要素。</span>
+<span class="sd">        検索フィールドについて、与えられた数値または日付の範囲内かを調べる検索要素。</span>
 
-<span class="sd">        :param from_: 再生回数の下限</span>
-<span class="sd">        :param to_: 再生回数の上限</span>
+<span class="sd">        :param field_type: 検索するフィールド</span>
+<span class="sd">        :param from_: 数値の下限または投稿時刻の最古</span>
+<span class="sd">        :param to_: 数値の上限または投稿時刻の最新</span>
 <span class="sd">        :param include_lower: from_ を含むかどうか</span>
 <span class="sd">        :param include_upper: to_ を含むかどうか</span>
 <span class="sd">        :return: 絞り込み要素オブジェクト</span>
@@ -176,12 +178,37 @@
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;上限も下限も指定されていません&quot;</span><span class="p">)</span>
         <span class="n">json_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;viewCounter&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_</span>
-        <span class="k">if</span> <span class="n">to_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_</span>
+
+        <span class="n">match</span> <span class="n">field_type</span><span class="p">:</span>
+            <span class="n">case</span> <span class="p">(</span>
+                <span class="n">FieldType</span><span class="o">.</span><span class="n">USER_ID</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CHANNEL_ID</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MYLIST_COUNTER</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LIKE_COUNTER</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LENGTH_SECONDS</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">COMMENT_COUNTER</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JsonFilterTerm</span><span class="o">.</span><span class="n">_arrange_value</span><span class="p">(</span>
+                        <span class="n">from_</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">field_type</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">to_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JsonFilterTerm</span><span class="o">.</span><span class="n">_arrange_value</span><span class="p">(</span><span class="n">to_</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">field_type</span><span class="p">)</span>
+            <span class="n">case</span> <span class="p">(</span><span class="n">FieldType</span><span class="o">.</span><span class="n">START_TIME</span> <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_COMMENT_TIME</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JsonFilterTerm</span><span class="o">.</span><span class="n">_arrange_value</span><span class="p">(</span>
+                        <span class="n">from_</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">field_type</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">to_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JsonFilterTerm</span><span class="o">.</span><span class="n">_arrange_value</span><span class="p">(</span>
+                        <span class="n">to_</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">field_type</span>
+                    <span class="p">)</span>
+            <span class="n">case</span> <span class="n">_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">はjson_filterに指定できないフィールドです&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">include_lower</span><span class="p">:</span>
             <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;include_lower&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_lower</span>
         <span class="k">if</span> <span class="n">include_upper</span><span class="p">:</span>
@@ -189,36 +216,19 @@
         <span class="n">term</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="n">json_</span>
         <span class="k">return</span> <span class="n">term</span></div>
 
-<div class="viewcode-block" id="JsonFilterTerm.set_range_time"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterTerm.set_range_time">[ドキュメント]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">set_range_time</span><span class="p">(</span>
-        <span class="n">from_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">to_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">include_lower</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">include_upper</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;JsonFilterTerm&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        投稿時刻が与えられた範囲内かを調べる検索要素。</span>
-
-<span class="sd">        :param from_: 投稿時刻の最古</span>
-<span class="sd">        :param to_: 投稿時刻の最新</span>
-<span class="sd">        :param include_lower: from_ を含むかどうか</span>
-<span class="sd">        :param include_upper: to_ を含むかどうか</span>
-<span class="sd">        :return: 絞り込み要素オブジェクト</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">term</span><span class="p">:</span> <span class="n">JsonFilterTerm</span> <span class="o">=</span> <span class="n">JsonFilterTerm</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">to_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;開始時刻も終了時刻も指定されていません&quot;</span><span class="p">)</span>
-        <span class="n">json_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;startTime&quot;</span><span class="p">}</span>
-        <span class="k">if</span> <span class="n">from_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S+09:00&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">to_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S+09:00&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">include_lower</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;include_lower&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_lower</span>
-        <span class="k">if</span> <span class="n">include_upper</span><span class="p">:</span>
-            <span class="n">json_</span><span class="p">[</span><span class="s2">&quot;include_upper&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_upper</span>
-        <span class="n">term</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="n">json_</span>
-        <span class="k">return</span> <span class="n">term</span></div></div>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_arrange_value</span><span class="p">(</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="p">],</span>
+        <span class="n">type_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">datetime</span><span class="p">]],</span>
+        <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="n">type_</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">type_</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">value</span>
+            <span class="k">elif</span> <span class="n">type_</span> <span class="ow">is</span> <span class="n">datetime</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S+09:00&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;フィールド </span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> には </span><span class="si">{</span><span class="n">type_</span><span class="si">}</span><span class="s2"> が指定されるべきです&quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

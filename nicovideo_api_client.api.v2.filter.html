@@ -82,8 +82,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nicovideo-api-client-api-v2-filter-module">
-<h1>nicovideo_api_client.api.v2.filter module<a class="headerlink" href="#nicovideo-api-client-api-v2-filter-module" title="このヘッドラインへのパーマリンク"></a></h1>
+  <section id="module-nicovideo_api_client.api.v2.filter">
+<span id="nicovideo-api-client-api-v2-filter-module"></span><h1>nicovideo_api_client.api.v2.filter module<a class="headerlink" href="#module-nicovideo_api_client.api.v2.filter" title="このヘッドラインへのパーマリンク"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nicovideo_api_client.api.v2.filter.</span></span><span class="sig-name descname"><span class="pre">SnapshotSearchAPIV2Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/filter.html#SnapshotSearchAPIV2Filter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.json_filter">
+<span class="sig-name descname"><span class="pre">json_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterOperator" title="nicovideo_api_client.api.v2.json_filter.JsonFilterOperator"><span class="pre">nicovideo_api_client.api.v2.json_filter.JsonFilterOperator</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="nicovideo_api_client.api.v2.json_filter.html#nicovideo_api_client.api.v2.json_filter.JsonFilterTerm" title="nicovideo_api_client.api.v2.json_filter.JsonFilterTerm"><span class="pre">nicovideo_api_client.api.v2.json_filter.JsonFilterTerm</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="nicovideo_api_client.api.v2.limit.html#nicovideo_api_client.api.v2.limit.SnapshotSearchAPIV2Limit" title="nicovideo_api_client.api.v2.limit.SnapshotSearchAPIV2Limit"><span class="pre">nicovideo_api_client.api.v2.limit.SnapshotSearchAPIV2Limit</span></a></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/filter.html#SnapshotSearchAPIV2Filter.json_filter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.json_filter" title="この定義へのパーマリンク"></a></dt>
+<dd><p><cite>JsonFilterOperator</cite> を使って表現した条件から、 <cite>jsonFilter</cite> を利用して絞り込む。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><p><strong>op</strong> -- 絞り込み条件</p>
+</dd>
+<dt class="field-even">戻り値</dt>
+<dd class="field-even"><p>リクエスト上限設定オブジェクト</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.simple_filter">
+<span class="sig-name descname"><span class="pre">simple_filter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="nicovideo_api_client.api.v2.simple_filter.html#nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter" title="nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter"><span class="pre">nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter</span></a></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/filter.html#SnapshotSearchAPIV2Filter.simple_filter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.simple_filter" title="この定義へのパーマリンク"></a></dt>
+<dd><p>絞り込みにシンプルな <cite>filters</cite> を利用することを宣言する。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p>フィルタリング要素指定オブジェクト</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

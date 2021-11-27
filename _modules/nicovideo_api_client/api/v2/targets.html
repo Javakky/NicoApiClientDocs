@@ -65,7 +65,7 @@
            <div itemprop="articleBody">
              
   <h1>nicovideo_api_client.api.v2.targets のソースコード</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Set</span>
 
 <span class="kn">from</span> <span class="nn">nicovideo_api_client.api.v2.field</span> <span class="kn">import</span> <span class="n">SnapshotSearchAPIV2Fields</span>
 <span class="kn">from</span> <span class="nn">nicovideo_api_client.constants</span> <span class="kn">import</span> <span class="n">FieldType</span>
@@ -73,23 +73,100 @@
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Targets"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2Targets">[ドキュメント]</a><span class="k">class</span> <span class="nc">SnapshotSearchAPIV2Targets</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">targets</span><span class="p">)))}</span>
+        <span class="n">list_targets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_targets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;targets が設定されていません&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">list_targets</span><span class="p">))</span>
+        <span class="p">}</span>
 
-<div class="viewcode-block" id="SnapshotSearchAPIV2Targets.query"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2Targets.query">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Fields</span><span class="p">:</span>
+<div class="viewcode-block" id="SnapshotSearchAPIV2Targets.single_query"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2Targets.single_query">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">single_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Fields</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        検索クエリ(キーワード)を指定する。</span>
 
 <span class="sd">        `クエリ文字列仕様 &lt;https://site.nicovideo.jp/search-api-docs/snapshot#%EF%BC%8A1-</span>
 <span class="sd">        %E3%82%AF%E3%82%A8%E3%83%AA%E6%96%87%E5%AD%97%E5%88%97%E4%BB%95%E6%A7%98&gt;`_</span>
-<span class="sd">        に沿った値を入力することで AND, OR 検索など複数のキーワードを含めた検索を行うことができる。</span>
+<span class="sd">        に沿った値を入力することでキーワードを含めた検索を行うことができる。</span>
 
-<span class="sd">        TODO: AND・OR検索を実装する</span>
+<span class="sd">        文字列を直接クエリに渡すため、キーワードに半角スペースやORを含めることでAND・OR検索を行うことができる。</span>
 
-<span class="sd">        :param keyword: 検索するキーワード</span>
+<span class="sd">        :param</span>
+<span class="sd">            keyword: 検索するキーワード(文字列型)</span>
 <span class="sd">        :return: レスポンスフィールドのタイプ指定オブジェクト</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyword</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;single_queryで指定するキーワードは str であるべきです&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;キーワードなし検索を行うにはno_keywordメソッドを指定する必要があります&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyword</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Targets.query"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2Targets.query">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="s2">&quot;SnapshotSearchAPIV2And&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        AND・OR検索を用いて検索クエリ(キーワード)を指定する。</span>
+
+<span class="sd">        `クエリ文字列仕様 &lt;https://site.nicovideo.jp/search-api-docs/snapshot#%EF%BC%8A1-</span>
+<span class="sd">        %E3%82%AF%E3%82%A8%E3%83%AA%E6%96%87%E5%AD%97%E5%88%97%E4%BB%95%E6%A7%98&gt;`_</span>
+<span class="sd">        に沿った値を入力することで AND, OR 検索など複数のキーワードを含めた検索を行うことができる。</span>
+
+<span class="sd">        :param</span>
+<span class="sd">            keyword: 検索するキーワード。文字列または文字列を要素に持つリスト。</span>
+<span class="sd">        :return: レスポンスアンドのタイプ指定オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;キーワードなし検索を行うにはno_keywordメソッドを指定する必要があります&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2And</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Targets.no_keyword"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2Targets.no_keyword">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">no_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Fields</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        キーワードなし検索を行う。</span>
+
+<span class="sd">        `クエリ文字列仕様 &lt;https://site.nicovideo.jp/search-api-docs/snapshot#%EF%BC%8A1-</span>
+<span class="sd">        %E3%82%AF%E3%82%A8%E3%83%AA%E6%96%87%E5%AD%97%E5%88%97%E4%BB%95%E6%A7%98&gt;`_</span>
+<span class="sd">        q=自体の省略はできません。</span>
+<span class="sd">        負荷の高い検索となりますので、filtersと併用しヒット件数を10万件以内に絞り込んだ上でご利用ください。</span>
+
+<span class="sd">        :return: レスポンスフィールドのタイプ指定オブジェクト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2And"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2And">[ドキュメント]</a><span class="k">class</span> <span class="nc">SnapshotSearchAPIV2And</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2And.field"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2And.field">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">FieldType</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_arrange_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        キーワードを適切な形でクエリに指定する。</span>
+<span class="sd">        :param keyword: クエリのqキーに指定するための文字列</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># フレーズ検索かどうかの判定(&quot; &quot;は&quot; OR &quot;も含んでいる)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">keyword</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="ow">and</span> <span class="n">keyword</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">keyword</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;検索ワードに半角スペースが含まれています&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">&quot;OR&quot;</span><span class="p">:</span>
+            <span class="n">keyword</span> <span class="o">=</span> <span class="s1">&#39;&quot;OR&quot;&#39;</span>
+        <span class="k">if</span> <span class="s2">&quot;q&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyword</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">keyword</span>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2And.and_"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.targets.html#nicovideo_api_client.api.v2.targets.SnapshotSearchAPIV2And.and_">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">and_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_arrange_keyword</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keyword</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_arrange_keyword</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">keyword</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; OR&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;検索キーワードには str または list が指定されるべきです&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div></div>
 </pre></div>
 
            </div>

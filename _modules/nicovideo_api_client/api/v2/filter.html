@@ -87,8 +87,7 @@
         <span class="k">return</span> <span class="n">SnapshotSearchAPIV2SimpleFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Filter.json_filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.filter.html#nicovideo_api_client.api.v2.filter.SnapshotSearchAPIV2Filter.json_filter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">json_filter</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">op</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">JsonFilterOperator</span><span class="p">,</span> <span class="n">JsonFilterTerm</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">JsonFilterOperator</span><span class="p">,</span> <span class="n">JsonFilterTerm</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        `JsonFilterOperator` を使って表現した条件から、 `jsonFilter` を利用して絞り込む。</span>
@@ -96,7 +95,13 @@
 <span class="sd">        :param op: 絞り込み条件</span>
 <span class="sd">        :return: リクエスト上限設定オブジェクト</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;jsonFilter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">JSONEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">json</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;jsonFilter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span>
+            <span class="n">JSONEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;q&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;キーワードが指定されていません&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;JSONフィルタでキーワードなし検索を行うことはできません&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div></div>
 </pre></div>
 

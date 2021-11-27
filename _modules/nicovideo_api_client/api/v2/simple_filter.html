@@ -67,45 +67,152 @@
   <h1>nicovideo_api_client.api.v2.simple_filter のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">nicovideo_api_client.api.v2.limit</span> <span class="kn">import</span> <span class="n">SnapshotSearchAPIV2Limit</span>
-<span class="kn">from</span> <span class="nn">nicovideo_api_client.constants</span> <span class="kn">import</span> <span class="n">FieldType</span>
+<span class="kn">from</span> <span class="nn">nicovideo_api_client.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CombinedDict</span><span class="p">,</span>
+    <span class="n">FieldType</span><span class="p">,</span>
+    <span class="n">MatchDict</span><span class="p">,</span>
+    <span class="n">MatchValue</span><span class="p">,</span>
+    <span class="n">RangeDict</span><span class="p">,</span>
+    <span class="n">RangeValue</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2SimpleFilter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.simple_filter.html#nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter">[ドキュメント]</a><span class="k">class</span> <span class="nc">SnapshotSearchAPIV2SimpleFilter</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="SnapshotSearchAPIV2SimpleFilter.set_filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.simple_filter.html#nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter.set_filter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">set_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">field_type</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">START_TIME</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;FieldType.START_TIMEを指定した時の型は datetime であるべきです&quot;</span><span class="p">)</span>
-            <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S+09:00&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">field_type</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CONTENT_ID</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-                <span class="n">v</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;sm</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;sm\d+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;FieldType.CONTENT_IDはsm(数字)の形で表されるべきです&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_cast_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">match</span> <span class="n">field_type</span><span class="p">:</span>
+            <span class="n">case</span> <span class="p">(</span>
+                <span class="n">FieldType</span><span class="o">.</span><span class="n">START_TIME</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_COMMENT_TIME</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">START_TIME</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;FieldType.</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">を指定した時の型は datetime であるべきです&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S+09:00&quot;</span><span class="p">)</span>
+            <span class="n">case</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CONTENT_ID</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;sm</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;sm\d+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;FieldType.CONTENT_IDはsm(数字)の形で表されるべきです&quot;</span><span class="p">)</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;FieldType.CONTENT_IDを指定した時の型は int または str であるべきです&quot;</span><span class="p">)</span>
+            <span class="n">case</span> <span class="p">(</span>
+                <span class="n">FieldType</span><span class="o">.</span><span class="n">COMMENT_COUNTER</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LENGTH_SECONDS</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LIKE_COUNTER</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MYLIST_COUNTER</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">int</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FieldType.</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">は整数が指定されるべきです&quot;</span><span class="p">)</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;FieldType.</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">を指定した時の型は int または str であるべきです&quot;</span>
+                    <span class="p">)</span>
+            <span class="n">case</span> <span class="p">(</span>
+                <span class="n">FieldType</span><span class="o">.</span><span class="n">GENRE_KEYWORD</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GENRE</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS_EXACT</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">TAGS</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CATEGORY_TAGS</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;FieldType.</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">を指定した時の型は str であるべきです&quot;</span>
+                    <span class="p">)</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;FieldType.CONTENT_IDを指定した時の型は int または str であるべきです&quot;</span><span class="p">)</span>
+            <span class="n">case</span> <span class="p">(</span>
+                <span class="n">FieldType</span><span class="o">.</span><span class="n">TITLE</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">DESCRIPTION</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">USER_ID</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CHANNEL_ID</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">THUMBNAIL_URL</span>
+                <span class="o">|</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAST_RES_BODY</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;FieldType.</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">はfilterに指定できないFieldTypeです&quot;</span>
+                <span class="p">)</span>
+            <span class="n">case</span> <span class="n">_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;未知のTypeが指定されました&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">_match_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span> <span class="n">match_value</span><span class="p">:</span> <span class="n">MatchValue</span><span class="p">):</span>
+        <span class="n">field_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">match_value</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_value</span><span class="p">(</span><span class="n">field_type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;filters[</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">][</span><span class="si">{</span><span class="n">field_count</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="n">field_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_range_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span> <span class="n">range_value</span><span class="p">:</span> <span class="n">RangeValue</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">literal</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">range_value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_value</span><span class="p">(</span><span class="n">field_type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;filters[</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">][</span><span class="si">{</span><span class="n">literal</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_classify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_type</span><span class="p">:</span> <span class="n">FieldType</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">MatchValue</span><span class="p">,</span> <span class="n">RangeValue</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_match_filter</span><span class="p">(</span><span class="n">field_type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_range_filter</span><span class="p">(</span><span class="n">field_type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;未知のTypeが指定されました&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;検索する値はListまたはDictで渡されるべきです&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-        <span class="k">if</span> <span class="n">field_type</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">[</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="viewcode-block" id="SnapshotSearchAPIV2SimpleFilter.filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.simple_filter.html#nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter.filter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">MatchDict</span><span class="p">,</span> <span class="n">RangeDict</span><span class="p">,</span> <span class="n">CombinedDict</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">combine</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        検索フィルターを指定する。</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">[</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="sd">        Args:</span>
+<span class="sd">            value(Optional[Union[MatchDict, RangeDict, CombinedDict]]):</span>
+<span class="sd">                フィルターを指定したいフィールドの辞書</span>
+<span class="sd">            combine(bool):</span>
+<span class="sd">                複合検索を使用する場合にTrueを指定する。デフォルト値はFalse</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span>
-            <span class="sa">f</span><span class="s1">&#39;filters[</span><span class="si">{</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">][</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">[</span><span class="n">field_type</span><span class="o">.</span><span class="n">value</span><span class="p">])</span><span class="si">}</span><span class="s1">]&#39;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+<span class="sd">        Returns:</span>
+<span class="sd">            レスポンス要素数の指定オブジェクト</span>
 
-<div class="viewcode-block" id="SnapshotSearchAPIV2SimpleFilter.filter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.simple_filter.html#nicovideo_api_client.api.v2.simple_filter.SnapshotSearchAPIV2SimpleFilter.filter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">:</span>
+<span class="sd">        Examples:</span>
+<span class="sd">            #一致検索の場合: filter(MatchDict型の辞書, False)</span>
+<span class="sd">            #範囲検索の場合: filter(RangeDict型の辞書, False)</span>
+<span class="sd">            #複合検索の場合: filter(CombinedDict型の辞書, True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;キーワード無し検索を行う場合には必ず検索フィルタを指定してください&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;検索にはMatchDictまたはRangeDictどちらかの型を指定する必要があります&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">combine</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">field_type_list</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">field_type_list</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;複合検索では同じFieldTypeを複数回指定することはできません&quot;</span><span class="p">)</span>
+                    <span class="n">field_type_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_classify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_classify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">SnapshotSearchAPIV2Limit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span></div></div>
 </pre></div>
 

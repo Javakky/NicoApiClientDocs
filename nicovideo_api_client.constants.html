@@ -75,8 +75,130 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nicovideo-api-client-constants-module">
-<h1>nicovideo_api_client.constants module<a class="headerlink" href="#nicovideo-api-client-constants-module" title="このヘッドラインへのパーマリンク"></a></h1>
+  <section id="module-nicovideo_api_client.constants">
+<span id="nicovideo-api-client-constants-module"></span><h1>nicovideo_api_client.constants module<a class="headerlink" href="#module-nicovideo_api_client.constants" title="このヘッドラインへのパーマリンク"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nicovideo_api_client.constants.</span></span><span class="sig-name descname"><span class="pre">FieldType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nicovideo_api_client/constants.html#FieldType"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.constants.FieldType" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>コンテンツのフィールド種別</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.CATEGORY_TAGS">
+<span class="sig-name descname"><span class="pre">CATEGORY_TAGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'categoryTags'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.CATEGORY_TAGS" title="この定義へのパーマリンク"></a></dt>
+<dd><p>カテゴリタグ</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.CHANNEL_ID">
+<span class="sig-name descname"><span class="pre">CHANNEL_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'channelId'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.CHANNEL_ID" title="この定義へのパーマリンク"></a></dt>
+<dd><p>チャンネル動画の場合、チャンネルID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.COMMENT_COUNTER">
+<span class="sig-name descname"><span class="pre">COMMENT_COUNTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'commentCounter'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.COMMENT_COUNTER" title="この定義へのパーマリンク"></a></dt>
+<dd><p>コメント数</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.CONTENT_ID">
+<span class="sig-name descname"><span class="pre">CONTENT_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'contentId'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.CONTENT_ID" title="この定義へのパーマリンク"></a></dt>
+<dd><p>コンテンツID
+<a class="reference external" href="https://nico.ms/">https://nico.ms/</a> の後に連結することでコンテンツへのURLになります</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.DESCRIPTION">
+<span class="sig-name descname"><span class="pre">DESCRIPTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'description'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.DESCRIPTION" title="この定義へのパーマリンク"></a></dt>
+<dd><p>コンテンツの説明文</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.GENRE">
+<span class="sig-name descname"><span class="pre">GENRE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genre'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.GENRE" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ジャンル</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.GENRE_KEYWORD">
+<span class="sig-name descname"><span class="pre">GENRE_KEYWORD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genre.keyword'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.GENRE_KEYWORD" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ジャンル完全一致</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.LAST_COMMENT_TIME">
+<span class="sig-name descname"><span class="pre">LAST_COMMENT_TIME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lastCommentTime'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.LAST_COMMENT_TIME" title="この定義へのパーマリンク"></a></dt>
+<dd><p>最終コメント時間</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.LAST_RES_BODY">
+<span class="sig-name descname"><span class="pre">LAST_RES_BODY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lastResBody'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.LAST_RES_BODY" title="この定義へのパーマリンク"></a></dt>
+<dd><p>最新のコメント</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.LENGTH_SECONDS">
+<span class="sig-name descname"><span class="pre">LENGTH_SECONDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lengthSeconds'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.LENGTH_SECONDS" title="この定義へのパーマリンク"></a></dt>
+<dd><p>再生時間(秒)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.LIKE_COUNTER">
+<span class="sig-name descname"><span class="pre">LIKE_COUNTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'likeCounter'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.LIKE_COUNTER" title="この定義へのパーマリンク"></a></dt>
+<dd><p>いいね！数</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.MYLIST_COUNTER">
+<span class="sig-name descname"><span class="pre">MYLIST_COUNTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mylistCounter'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.MYLIST_COUNTER" title="この定義へのパーマリンク"></a></dt>
+<dd><p>マイリスト数またはお気に入り数</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.START_TIME">
+<span class="sig-name descname"><span class="pre">START_TIME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'startTime'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.START_TIME" title="この定義へのパーマリンク"></a></dt>
+<dd><p>コンテンツの投稿時間</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.TAGS">
+<span class="sig-name descname"><span class="pre">TAGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tags'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.TAGS" title="この定義へのパーマリンク"></a></dt>
+<dd><p>タグ(空白区切り)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.TAGS_EXACT">
+<span class="sig-name descname"><span class="pre">TAGS_EXACT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tagsExact'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.TAGS_EXACT" title="この定義へのパーマリンク"></a></dt>
+<dd><p>タグ完全一致(空白区切り)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.THUMBNAIL_URL">
+<span class="sig-name descname"><span class="pre">THUMBNAIL_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'thumbnailUrl'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.THUMBNAIL_URL" title="この定義へのパーマリンク"></a></dt>
+<dd><p>サムネイルのURL</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.TITLE">
+<span class="sig-name descname"><span class="pre">TITLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'title'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.TITLE" title="この定義へのパーマリンク"></a></dt>
+<dd><p>タイトル</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.USER_ID">
+<span class="sig-name descname"><span class="pre">USER_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'userId'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.USER_ID" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ユーザー投稿動画の場合、投稿者のユーザーID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nicovideo_api_client.constants.FieldType.VIEW_COUNTER">
+<span class="sig-name descname"><span class="pre">VIEW_COUNTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'viewCounter'</span></em><a class="headerlink" href="#nicovideo_api_client.constants.FieldType.VIEW_COUNTER" title="この定義へのパーマリンク"></a></dt>
+<dd><p>再生数</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

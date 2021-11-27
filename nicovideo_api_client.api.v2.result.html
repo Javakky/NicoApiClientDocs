@@ -82,8 +82,77 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nicovideo-api-client-api-v2-result-module">
-<h1>nicovideo_api_client.api.v2.result module<a class="headerlink" href="#nicovideo-api-client-api-v2-result-module" title="このヘッドラインへのパーマリンク"></a></h1>
+  <section id="module-nicovideo_api_client.api.v2.result">
+<span id="nicovideo-api-client-api-v2-result-module"></span><h1>nicovideo_api_client.api.v2.result module<a class="headerlink" href="#module-nicovideo_api_client.api.v2.result" title="このヘッドラインへのパーマリンク"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nicovideo_api_client.api.v2.result.</span></span><span class="sig-name descname"><span class="pre">SnapshotSearchAPIV2Result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">requests.models.Response</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result" title="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result"><span class="pre">nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p><a class="reference external" href="https://site.nicovideo.jp/search-api-docs/snapshot#%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B9">レスポンス仕様</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.avg_view_counter">
+<span class="sig-name descname"><span class="pre">avg_view_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.avg_view_counter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.avg_view_counter" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスに含まれる再生回数の平均を返す。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.center_view_counter">
+<span class="sig-name descname"><span class="pre">center_view_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.center_view_counter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.center_view_counter" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスに含まれる再生回数の中央値を返す。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.data"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.data" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスの本体データを Dict オブジェクト形式で返す。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.json"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.json" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスを Dict オブジェクトとして返す。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.meta">
+<span class="sig-name descname"><span class="pre">meta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.meta"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.meta" title="この定義へのパーマリンク"></a></dt>
+<dd><p>リクエストのメタ情報 (HTTP Status など) を返す。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.meta_id">
+<span class="sig-name descname"><span class="pre">meta_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.meta_id"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.meta_id" title="この定義へのパーマリンク"></a></dt>
+<dd><p>リクエストID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.status"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.status" title="この定義へのパーマリンク"></a></dt>
+<dd><p>HTTP レスポンスのStatus を返す。</p>
+<p>複数回に分割リクエストした場合、エラー処理ができていないためここに辿り着いた時点で 200</p>
+<p>TODO: 分割リクエストにエラー対応を実装</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.sum_view_counter">
+<span class="sig-name descname"><span class="pre">sum_view_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.sum_view_counter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.sum_view_counter" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスに含まれる再生回数の合計を返す。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.text"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.text" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスを文字列形式で表す</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/nicovideo_api_client/api/v2/result.html#SnapshotSearchAPIV2Result.total_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.total_count" title="この定義へのパーマリンク"></a></dt>
+<dd><p>レスポンスに含まれる件数</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

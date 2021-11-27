@@ -65,11 +65,11 @@
            <div itemprop="articleBody">
              
   <h1>nicovideo_api_client.api.v2.result のソースコード</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">statistics</span>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">statistics</span>
 <span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">JSONEncoder</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="kn">from</span> <span class="nn">nicovideo_api_client.constants</span> <span class="kn">import</span> <span class="n">FieldType</span>
@@ -77,17 +77,25 @@
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Result"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result">[ドキュメント]</a><span class="k">class</span> <span class="nc">SnapshotSearchAPIV2Result</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    `レスポンス仕様 &lt;https://site.nicovideo.jp/search-api-docs/snapshot#%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B9&gt;`_</span>
+<span class="sd">    `レスポンス仕様 &lt;https://site.nicovideo.jp/search-api-docs/snapshot</span>
+<span class="sd">    #%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B9&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">response</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;SnapshotSearchAPIV2Result&#39;</span><span class="p">]]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span><span class="p">[</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;fields&quot;</span> <span class="ow">in</span> <span class="n">query</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">response</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;SnapshotSearchAPIV2Result&quot;</span><span class="p">]],</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">query</span><span class="p">[</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;fields&quot;</span> <span class="ow">in</span> <span class="n">query</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
             <span class="k">return</span>
 
-        <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;SnapshotSearchAPIV2Result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;SnapshotSearchAPIV2Result&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;空のリストが渡されました&quot;</span><span class="p">)</span>
@@ -107,17 +115,39 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        リクエストのメタ情報 (HTTP Status など) を返す。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s1">&#39;meta&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">():</span>
             <span class="k">return</span> <span class="p">{}</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;meta&#39;</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Result.status"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.status">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        HTTP レスポンスのStatus を返す。</span>
+
+<span class="sd">        複数回に分割リクエストした場合、エラー処理ができていないためここに辿り着いた時点で 200</span>
+
+<span class="sd">        TODO: 分割リクエストにエラー対応を実装</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">()[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Result.meta_id"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.meta_id">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">meta_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        リクエストID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">()[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SnapshotSearchAPIV2Result.total_count"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.total_count">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">total_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        レスポンスに含まれる件数</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">()[</span><span class="s2">&quot;totalCount&quot;</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Result.data"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.data">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        レスポンスの本体データを Dict オブジェクト形式で返す。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s1">&#39;data&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;data&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">():</span>
             <span class="k">return</span> <span class="p">[]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Result.sum_view_counter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.sum_view_counter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">sum_view_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -133,7 +163,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;フィールドに viewCounter が指定されていません&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="o">.</span><span class="n">value</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">())))</span></div>
+        <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="o">.</span><span class="n">value</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">()))</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Result.center_view_counter"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.center_view_counter">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">center_view_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -141,23 +173,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;フィールドに viewCounter が指定されていません&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">()[</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_count</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)][</span><span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="o">.</span><span class="n">value</span><span class="p">]</span></div>
-
-<div class="viewcode-block" id="SnapshotSearchAPIV2Result.status"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.status">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        HTTP レスポンスのStatus を返す。</span>
-
-<span class="sd">        複数回に分割リクエストした場合、エラー処理ができていないためここに辿り着いた時点で 200</span>
-
-<span class="sd">        TODO: 分割リクエストにエラー対応を実装</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">()[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span></div>
-
-<div class="viewcode-block" id="SnapshotSearchAPIV2Result.total_count"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.total_count">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">total_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        レスポンスに含まれる件数</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">()[</span><span class="s1">&#39;totalCount&#39;</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">()[</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_count</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)][</span>
+            <span class="n">FieldType</span><span class="o">.</span><span class="n">VIEW_COUNTER</span><span class="o">.</span><span class="n">value</span>
+        <span class="p">]</span></div>
 
 <div class="viewcode-block" id="SnapshotSearchAPIV2Result.text"><a class="viewcode-back" href="../../../../nicovideo_api_client.api.v2.result.html#nicovideo_api_client.api.v2.result.SnapshotSearchAPIV2Result.text">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
